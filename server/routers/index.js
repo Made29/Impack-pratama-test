@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
-const items = require("./items")
+const products = require("./product")
 
-router.use(items)
+router.use(products)
 
 module.exports = router
