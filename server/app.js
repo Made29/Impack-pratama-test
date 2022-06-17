@@ -7,11 +7,12 @@ const app = express();
 const port = 3000;
 
 const routes = require("./routers/index")
+const errorHandler = require("./middleware/errorHandling")
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use("/", routes)
-// app.use(errorHandler)
+app.use(errorHandler)
 
 app.listen(port, () => {
     console.log(`Lisent to Port ${port}`);
