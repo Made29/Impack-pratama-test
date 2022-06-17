@@ -13,6 +13,18 @@ const errorHandler = (error, req, res) => {
             message = error.message;
             break;
 
+        case "EMAIL_REQUIRED":
+        case "PASSWORD_REQUIRED":
+            status = 400
+            message = error.message
+            break;
+
+        case "EMAIL_INVALID":
+        case "PASSWORD_INVALID":
+            status = 400
+            message = error.message
+            break;
+                
         default:
             break;
     }

@@ -30,7 +30,6 @@ class Controller {
                 data: data,
             });
         } catch (error) {
-            console.log("error: ", error);
             next(error);
         }
     }

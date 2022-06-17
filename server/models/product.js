@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Product.belongsTo(models.User);
     }
   }
   Product.init({
@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
     UOM: {
       type: DataTypes.ENUM("sheet", "roll", "pcs"),
       allowNull: false
+    }, 
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     } 
     }, {
     sequelize,
