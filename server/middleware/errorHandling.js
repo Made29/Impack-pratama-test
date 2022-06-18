@@ -1,6 +1,7 @@
-const errorHandler = (error, req, res) => {
+const errorHandler = (error, req, res, next) => {
     let status = 500;
     let message = "Internal Server Error";
+
     switch (error.name) {
         case "SequelizeValidationError":
         case "SequelizeUniqueConstraintError":
@@ -15,16 +16,16 @@ const errorHandler = (error, req, res) => {
 
         case "EMAIL_REQUIRED":
         case "PASSWORD_REQUIRED":
-            status = 400
-            message = error.message
+            status = 400;
+            message = error.message;
             break;
 
         case "EMAIL_INVALID":
         case "PASSWORD_INVALID":
-            status = 400
-            message = error.message
+            status = 400;
+            message = error.message;
             break;
-                
+
         default:
             break;
     }

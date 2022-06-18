@@ -40,12 +40,11 @@ class Controller{
                 }    
             }
 
-            const access_token = createToken({ id: user.id, name: user.name, email: user.email })
+            const access_token = createToken({ email: user.email })
 
             res.status(200).json({ access_token })
         }catch(error){
             next(error)
-            console.log(error)
         }
     }
 
@@ -66,7 +65,6 @@ class Controller{
 
         }catch(error){
             next(error)
-            console.log("error: ", error);
         }
     }
 }

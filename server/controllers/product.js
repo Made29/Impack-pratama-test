@@ -24,6 +24,7 @@ class Controller {
                 description,
                 price,
                 UOM,
+                UserId: 1,
             });
             res.status(201).json({
                 message: "Product has been added",
@@ -64,7 +65,7 @@ class Controller {
             const data = await Product.destroy({
                 where: { id },
             });
-
+            
             if (!data) {
                 throw {
                     name: "PRODUCT_NOT_FOUND",
