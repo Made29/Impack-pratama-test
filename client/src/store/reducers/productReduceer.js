@@ -1,13 +1,16 @@
+import { PRODUCT_FETCHDATA } from "../actions/actionType";
+
 const initialProductState = {
     products: [],
 }
 
-function productReducer(state = { value: 0 }, action) {
+function productReducer(state = initialProductState, action) {
     switch (action.type) {
-        case "counter/incremented":
-            return { value: state.value + 1 };
-        case "counter/decremented":
-            return { value: state.value - 1 };
+        case PRODUCT_FETCHDATA:
+            return {
+                ...state,
+                products: action.payload,
+            }
         default:
             return state;
     }

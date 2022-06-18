@@ -10,15 +10,24 @@ import {
     CModalHeader,
     CModalTitle,
     CModalBody,
-    CModalFooter
+    CModalFooter,
 } from "@coreui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllData } from "../store/actions/actionProduct";
+import  rupiah  from "../helpers/formatRupiah"
 
 export default function Table() {
     const [modal, setModal] = useState(false);
+    const { products } = useSelector((state) => state.product);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchAllData());
+    }, [dispatch]);
 
     return (
-        <CTable style={{ background: "#FAFAFA", width: "84%" }}>
+        <CTable style={{ background: "#FAFAFA"}}>
             <CTableHead>
                 <CTableRow className="h-10">
                     <CTableHeaderCell scope="col">No</CTableHeaderCell>
@@ -31,30 +40,45 @@ export default function Table() {
                 </CTableRow>
             </CTableHead>
             <CTableBody>
-                <CTableRow>
-                    <CTableHeaderCell scope="row">1</CTableHeaderCell>
-                    <CTableDataCell>Mark</CTableDataCell>
-                    <CTableDataCell>Otto</CTableDataCell>
-                    <CTableDataCell>@mdo</CTableDataCell>
-                    <CTableDataCell>Otto</CTableDataCell>
-                    <CTableDataCell>@mdo</CTableDataCell>
-                    <CTableDataCell className="space-x-1">
-                        <CButton color="success">Edit</CButton>
-                        <CButton color="danger" onClick={() => setModal(true)}>Delete</CButton>
-                        <CModal visible={modal} onClose={() => setModal(false)}>
-                            <CModalHeader>
-                                <CModalTitle>Delete Product</CModalTitle>
-                            </CModalHeader>
-                            <CModalBody>
-                                Are you sure want to delete this procuct?
-                            </CModalBody>
-                            <CModalFooter>
-                                <CButton color="secondary" onClick={() => setModal(false)}>Close</CButton>
-                                <CButton color="primary">Delete</CButton>
-                            </CModalFooter>
-                        </CModal>
-                    </CTableDataCell>
-                </CTableRow>
+                {products.map((el, i) => (
+                    <CTableRow>
+                        <CTableHeaderCell scope="row">{ i + 1 }</CTableHeaderCell>
+                        <CTableDataCell>{ el.code }</CTableDataCell>
+                        <CTableDataCell className="w-52">{ el.name }</CTableDataCell>
+                        <CTableDataCell className="w-[45%]">{ el.description }</CTableDataCell>
+                        <CTableDataCell>{ rupiah(el.price) }</CTableDataCell>
+                        <CTableDataCell>{ el.UOM }</CTableDataCell>
+                        <CTableDataCell className="space-x-1">
+                            <CButton color="success">Edit</CButton>
+                            <CButton
+                                color="danger"
+                                onClick={() => setModal(true)}
+                            >
+                                Delete
+                            </CButton>
+                            <CModal
+                                visible={modal}
+                                onClose={() => setModal(false)}
+                            >
+                                <CModalHeader>
+                                    <CModalTitle>Delete Product</CModalTitle>
+                                </CModalHeader>
+                                <CModalBody>
+                                    Are you sure want to delete this procuct?
+                                </CModalBody>
+                                <CModalFooter>
+                                    <CButton
+                                        color="secondary"
+                                        onClick={() => setModal(false)}
+                                    >
+                                        Close
+                                    </CButton>
+                                    <CButton color="primary">Delete</CButton>
+                                </CModalFooter>
+                            </CModal>
+                        </CTableDataCell>
+                    </CTableRow>
+                ))}
             </CTableBody>
         </CTable>
     );

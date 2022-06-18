@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Sidebar() {
     return (
-        <CSidebar style={{ background: "#0284C7", width: "16%" }}>
+        <CSidebar style={{ background: "#0284C7" }} size="sm">
             <CSidebarBrand className="p-8 text-black">
                 Impact Pratama TBK
             </CSidebarBrand>
