@@ -112,7 +112,10 @@ export default function Table() {
                                         </CButton>
                                         <CButton
                                             color="primary"
-                                            onClick={() => deleteButton(el.id)}
+                                            onClick={() => {
+                                                deleteButton(el.id)
+                                                setModal(false)
+                                            }}
                                         >
                                             Delete
                                         </CButton>
