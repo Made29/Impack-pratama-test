@@ -20,6 +20,7 @@ import rupiah from "../helpers/formatRupiah";
 
 export default function Table() {
     const [modal, setModal] = useState(false);
+    const [deleteById, setDeleteById] = useState(null);
     const { products } = useSelector((state) => state.product);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,12 +31,20 @@ export default function Table() {
 
     const deleteButton = (id) => {
         dispatch(deleteProduct(id));
+        setModal(false)
     };
 
     const editButton = (id, code, name, description, price, UOM) => {
         navigate(`/editProduct/${id}`, {
-            state: { id: id, code: code, name: name, description: description, price: price, UOM: UOM }
-        })
+            state: {
+                id: id,
+                code: code,
+                name: name,
+                description: description,
+                price: price,
+                UOM: UOM,
+            },
+        });
     };
 
     return (
@@ -85,12 +94,15 @@ export default function Table() {
                                 </CButton>
                                 <CButton
                                     color="danger"
-                                    onClick={() => setModal(true)}
+                                    onClick={() => {
+                                        setModal(true);
+                                        setDeleteById(el.id);
+                                    }}
                                 >
                                     Delete
                                 </CButton>
                                 <CModal
-                                    visible={modal}
+                                    visible={modal && deleteById === el.id}
                                     backdrop={false}
                                     onClose={() => setModal(false)}
                                 >
@@ -100,24 +112,24 @@ export default function Table() {
                                         </CModalTitle>
                                     </CModalHeader>
                                     <CModalBody>
-                                        Are you sure want to delete the product
-                                        from product list?
+                                        {`Are you sure want to delete ${el.name}
+                                         from product list?`}
                                     </CModalBody>
                                     <CModalFooter>
                                         <CButton
                                             color="secondary"
                                             onClick={() => setModal(false)}
                                         >
-                                            Close
+                                            No
                                         </CButton>
                                         <CButton
                                             color="primary"
                                             onClick={() => {
-                                                deleteButton(el.id)
-                                                setModal(false)
+                                                deleteButton(el.id);
+                                                
                                             }}
                                         >
-                                            Delete
+                                            Yes
                                         </CButton>
                                     </CModalFooter>
                                 </CModal>
