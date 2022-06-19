@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       validate: {
-        notNUll: { msg: "Code is required" },
+        notNull: { msg: "Code is required" },
         notEmpty: { msg: "Code is required" }
       }
     }, 
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNUll: { msg: "Name is required" },
+        notNull: { msg: "Name is required" },
         notEmpty: { msg: "Name is required" }
       }
     }, 
@@ -35,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNUll: { msg: "Description is required" },
+        notNull: { msg: "Description is required" },
         notEmpty: { msg: "Description is required" }
       }
     }, 
@@ -43,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        notNUll: { msg: "Price is required" },
+        notNull: { msg: "Price is required" },
         notEmpty: { msg: "Price is required" }
       }
     }, 
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ENUM("sheet", "roll", "pcs"),
       allowNull: false,
       validate: {
-        notNUll: { msg: "UOM is required" },
+        notNull: { msg: "UOM is required" },
         notEmpty: { msg: "UOM is required" }
       }
     }, 
@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        notNUll: { msg: "UserId is required" },
+        notNull: { msg: "UserId is required" },
         notEmpty: { msg: "UserId is required" }
       }
     } 

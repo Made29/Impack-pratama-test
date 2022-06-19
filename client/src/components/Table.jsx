@@ -14,8 +14,8 @@ import {
 } from "@coreui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllData } from "../store/actions/actionProduct";
-import  rupiah  from "../helpers/formatRupiah"
+import { deleteProduct, fetchAllData } from "../store/actions/actionProduct";
+import rupiah from "../helpers/formatRupiah";
 
 export default function Table() {
     const [modal, setModal] = useState(false);
@@ -26,8 +26,12 @@ export default function Table() {
         dispatch(fetchAllData());
     }, [dispatch]);
 
+    const deleteButton = (id) => {
+        dispatch(deleteProduct(id));
+    };
+
     return (
-        <CTable style={{ background: "#FAFAFA"}}>
+        <CTable style={{ background: "#FAFAFA" }}>
             <CTableHead>
                 <CTableRow className="h-10">
                     <CTableHeaderCell scope="col">No</CTableHeaderCell>
@@ -40,45 +44,61 @@ export default function Table() {
                 </CTableRow>
             </CTableHead>
             <CTableBody>
-                {products.map((el, i) => (
-                    <CTableRow>
-                        <CTableHeaderCell scope="row">{ i + 1 }</CTableHeaderCell>
-                        <CTableDataCell>{ el.code }</CTableDataCell>
-                        <CTableDataCell className="w-52">{ el.name }</CTableDataCell>
-                        <CTableDataCell className="w-[45%]">{ el.description }</CTableDataCell>
-                        <CTableDataCell>{ rupiah(el.price) }</CTableDataCell>
-                        <CTableDataCell>{ el.UOM }</CTableDataCell>
-                        <CTableDataCell className="space-x-1">
-                            <CButton color="success">Edit</CButton>
-                            <CButton
-                                color="danger"
-                                onClick={() => setModal(true)}
-                            >
-                                Delete
-                            </CButton>
-                            <CModal
-                                visible={modal}
-                                onClose={() => setModal(false)}
-                            >
-                                <CModalHeader>
-                                    <CModalTitle>Delete Product</CModalTitle>
-                                </CModalHeader>
-                                <CModalBody>
-                                    Are you sure want to delete this procuct?
-                                </CModalBody>
-                                <CModalFooter>
-                                    <CButton
-                                        color="secondary"
-                                        onClick={() => setModal(false)}
-                                    >
-                                        Close
-                                    </CButton>
-                                    <CButton color="primary">Delete</CButton>
-                                </CModalFooter>
-                            </CModal>
-                        </CTableDataCell>
-                    </CTableRow>
-                ))}
+                {products.map &&
+                    products.map((el, i) => (
+                        <CTableRow>
+                            <CTableHeaderCell scope="row">
+                                {i + 1}
+                            </CTableHeaderCell>
+                            <CTableDataCell>{el.code}</CTableDataCell>
+                            <CTableDataCell className="w-52">
+                                {el.name}
+                            </CTableDataCell>
+                            <CTableDataCell className="w-[45%]">
+                                {el.description}
+                            </CTableDataCell>
+                            <CTableDataCell>{rupiah(el.price)}</CTableDataCell>
+                            <CTableDataCell>{el.UOM}</CTableDataCell>
+                            <CTableDataCell className="space-x-1">
+                                <CButton color="success">Edit</CButton>
+                                <CButton
+                                    color="danger"
+                                    onClick={() => setModal(true)}
+                                >
+                                    Delete
+                                </CButton>
+                                <CModal
+                                    visible={modal}
+                                    backdrop={false}
+                                    onClose={() => setModal(false)}
+                                >
+                                    <CModalHeader>
+                                        <CModalTitle>
+                                            Delete Product
+                                        </CModalTitle>
+                                    </CModalHeader>
+                                    <CModalBody>
+                                        Are you sure want to delete the product
+                                        from product list?
+                                    </CModalBody>
+                                    <CModalFooter>
+                                        <CButton
+                                            color="secondary"
+                                            onClick={() => setModal(false)}
+                                        >
+                                            Close
+                                        </CButton>
+                                        <CButton
+                                            color="primary"
+                                            onClick={() => deleteButton(el.id)}
+                                        >
+                                            Delete
+                                        </CButton>
+                                    </CModalFooter>
+                                </CModal>
+                            </CTableDataCell>
+                        </CTableRow>
+                    ))}
             </CTableBody>
         </CTable>
     );

@@ -1,8 +1,8 @@
-import { PRODUCT_FETCHDATA } from "../actions/actionType";
+import { PRODUCT_FETCHDATA, PRODUCT_ADD } from "../actions/actionType";
 
 const initialProductState = {
     products: [],
-}
+};
 
 function productReducer(state = initialProductState, action) {
     switch (action.type) {
@@ -10,7 +10,13 @@ function productReducer(state = initialProductState, action) {
             return {
                 ...state,
                 products: action.payload,
-            }
+            };
+        case PRODUCT_ADD:
+            state.products.push(action.payload);
+            return {
+                ...state,
+                products: state.products,
+            };
         default:
             return state;
     }
