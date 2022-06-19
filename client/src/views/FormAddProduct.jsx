@@ -17,7 +17,6 @@ export default function FormAddProduct() {
         UOM: "",
     });
     
-    console.log("product: ", product);
     const input = (e) => {
         const { name, value } = e.target;
         setProduct({ ...product, [name]: value });

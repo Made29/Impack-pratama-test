@@ -33,7 +33,6 @@ export const fetchAllData = () => {
 };
 
 export const addNewProduct = (payload) => {
-    console.log("payload: ", payload);
     return (dispatch) => {
         fetch(`${url}/addNewProduct`, {
             method: "POST",
@@ -43,7 +42,6 @@ export const addNewProduct = (payload) => {
             body: JSON.stringify(payload) 
         })
         .then((response) => {
-            console.log("response: ", response);
             if(!response.ok){
                 throw new Error(response.statusText)
             }
@@ -69,6 +67,7 @@ export const editProduct = (id, payload) => {
             if(!response.ok){
                 throw new Error(response.statusText)
             }
+            return response.json()
         })
         .catch((error) => {
             console.log(error)

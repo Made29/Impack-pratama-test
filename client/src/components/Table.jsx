@@ -14,6 +14,7 @@ import {
 } from "@coreui/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { deleteProduct, fetchAllData } from "../store/actions/actionProduct";
 import rupiah from "../helpers/formatRupiah";
 
@@ -21,6 +22,7 @@ export default function Table() {
     const [modal, setModal] = useState(false);
     const { products } = useSelector((state) => state.product);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(fetchAllData());
@@ -28,6 +30,12 @@ export default function Table() {
 
     const deleteButton = (id) => {
         dispatch(deleteProduct(id));
+    };
+
+    const editButton = (id, code, name, description, price, UOM) => {
+        navigate(`/editProduct/${id}`, {
+            state: { id: id, code: code, name: name, description: description, price: price, UOM: UOM }
+        })
     };
 
     return (
@@ -60,7 +68,21 @@ export default function Table() {
                             <CTableDataCell>{rupiah(el.price)}</CTableDataCell>
                             <CTableDataCell>{el.UOM}</CTableDataCell>
                             <CTableDataCell className="space-x-1">
-                                <CButton color="success">Edit</CButton>
+                                <CButton
+                                    color="success"
+                                    onClick={() => {
+                                        editButton(
+                                            el.id,
+                                            el.code,
+                                            el.name,
+                                            el.description,
+                                            el.price,
+                                            el.UOM
+                                        );
+                                    }}
+                                >
+                                    Edit
+                                </CButton>
                                 <CButton
                                     color="danger"
                                     onClick={() => setModal(true)}
