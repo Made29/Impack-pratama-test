@@ -1,7 +1,7 @@
 import { CForm, CFormInput, CFormSelect, CButton } from "@coreui/react";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Sidebar from "../components/Sidebar";
 import { editProduct } from "../store/actions/actionProduct";
 
@@ -11,7 +11,6 @@ export default function FormEditPage() {
 
     const { state } = useLocation();
     const { id, code, name, description, price, UOM } = state;
-    console.log("id, code, name, description, price, UOM: ", id, code, name, description, price, UOM);
 
     const [product, setProduct] = useState({
         code: code,
